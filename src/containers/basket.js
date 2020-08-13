@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Quantity from '../components/quantity';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   textContainer: {
-
   }
 }));
 
@@ -60,6 +60,7 @@ const Basket = () => {
               <Typography variant='h6'>
                 <span>&pound;</span>{item.price}
               </Typography>
+              <Quantity itemId={item.id} />
             </Grid>
           </Grid>
         )
@@ -69,6 +70,8 @@ const Basket = () => {
     return result
   }
 
+
+
   return (
     <React.Fragment >
       <div className={classes.root}>
@@ -76,6 +79,9 @@ const Basket = () => {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               {itemsLoop()}
+            </Grid>
+            <Grid item xs={6}>
+              {/* {quantities()} */}
             </Grid>
           </Grid>
         </Paper>
