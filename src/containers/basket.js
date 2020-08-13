@@ -37,15 +37,39 @@ const Basket = () => {
   const classes = useStyles();
   const products = useContext(DashboardContext);
   const [items, setItems] = useState({});
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState([{
+    id: '',
+    value: ''
+  }])
 
   useEffect(() => {
     setItems(products.data)
   }, [products.data])
 
   const calculateItemValue = (q) => {
-    setTotal(...total + q)
+    setTotal(
+      [
+        ...total,
+        {
+          id: q.id,
+          value: q.value
+        }
+      ],
+    )
   }
+
+  // const calculateItemValue = (q) => {
+  //   setTotal(
+  //     [
+  //       ...total,
+  //       {
+  //         id: q.id,
+  //         value: q.value
+  //       }
+  //     ],
+  //   )
+  // }
+
 
   const itemsLoop = () => {
     let result = []
@@ -86,7 +110,7 @@ const Basket = () => {
               {itemsLoop()}
             </Grid>
             <Grid item xs={6}>
-              {total}
+              {/* {total} */}
             </Grid>
           </Grid>
         </Paper>

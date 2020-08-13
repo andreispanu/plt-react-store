@@ -27,18 +27,24 @@ const Quantity = (props) => {
 
 
   // Increment basket
-  const add = (price) => {
+  const add = (price, id) => {
     setQuantity(quantity => quantity + 1)
-    props.updateCart((quantity + 1) * price)
+    props.updateCart({
+      value: (quantity + 1) * price,
+      id
+    })
   }
 
   // Remove items from basket
-  const remove = (price) => {
+  const remove = (price, id) => {
     if (quantity === 0) {
       setQuantity(0)
     } else {
       setQuantity(quantity => quantity - 1)
-      props.updateCart((quantity - 1) * price)
+      props.updateCart({
+        value: (quantity - 1) * price,
+        id
+      })
     }
   }
 
@@ -51,7 +57,7 @@ const Quantity = (props) => {
     <div className={classes.itemContainer}>
       <div className={classes.itemQuantity} key={props.itemId}>
 
-        <IconButton aria-label="add" onClick={() => add(props.itemPrice)}>
+        <IconButton aria-label="add" onClick={() => add(props.itemPrice, props.itemId)}>
           <AddCircleOutlineIcon />
         </IconButton>
 
@@ -59,7 +65,7 @@ const Quantity = (props) => {
           value={quantity}
         />
 
-        <IconButton aria-label="remove" onClick={() => remove(props.itemPrice)}>
+        <IconButton aria-label="remove" onClick={() => remove(props.itemPrice, props.itemId)}>
           <RemoveCircleOutlineIcon />
         </IconButton>
       </div>
