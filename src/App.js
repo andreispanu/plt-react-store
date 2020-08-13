@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Basket from './containers/basket';
 import axios from 'axios';
-
+import { DashboardContext } from "./context/Context";
 
 
 
@@ -35,9 +35,12 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      <Basket />
-    </div>
+    <DashboardContext.Provider value={data}>
+      <div className="App">
+        <Basket />
+      </div>
+    </DashboardContext.Provider>
+
   );
 }
 
