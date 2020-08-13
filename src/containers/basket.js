@@ -37,10 +37,15 @@ const Basket = () => {
   const classes = useStyles();
   const products = useContext(DashboardContext);
   const [items, setItems] = useState({});
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     setItems(products.data)
   }, [products.data])
+
+  const calculateItemValue = (q) => {
+    setTotal(...total + q)
+  }
 
   const itemsLoop = () => {
     let result = []
@@ -60,7 +65,7 @@ const Basket = () => {
               <Typography variant='h6'>
                 <span>&pound;</span>{item.price}
               </Typography>
-              <Quantity itemId={item.id} />
+              <Quantity itemId={item.id} itemPrice={item.price} updateCart={q => calculateItemValue(q)} />
             </Grid>
           </Grid>
         )
@@ -81,7 +86,7 @@ const Basket = () => {
               {itemsLoop()}
             </Grid>
             <Grid item xs={6}>
-              {/* {quantities()} */}
+              {total}
             </Grid>
           </Grid>
         </Paper>

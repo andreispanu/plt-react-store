@@ -25,17 +25,20 @@ const Quantity = (props) => {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(0);
 
+
   // Increment basket
-  const add = () => {
+  const add = (price) => {
     setQuantity(quantity => quantity + 1)
+    props.updateCart((quantity + 1) * price)
   }
 
   // Remove items from basket
-  const remove = () => {
+  const remove = (price) => {
     if (quantity === 0) {
       setQuantity(0)
     } else {
       setQuantity(quantity => quantity - 1)
+      props.updateCart((quantity - 1) * price)
     }
   }
 
@@ -47,16 +50,20 @@ const Quantity = (props) => {
   return (
     <div className={classes.itemContainer}>
       <div className={classes.itemQuantity} key={props.itemId}>
-        <IconButton aria-label="add" onClick={() => add()}>
+
+        <IconButton aria-label="add" onClick={() => add(props.itemPrice)}>
           <AddCircleOutlineIcon />
         </IconButton>
+
         <TextField
           value={quantity}
         />
-        <IconButton aria-label="remove" onClick={() => remove()}>
+
+        <IconButton aria-label="remove" onClick={() => remove(props.itemPrice)}>
           <RemoveCircleOutlineIcon />
         </IconButton>
       </div>
+
       <div className={classes.itemRemove}>
         {quantity > 0 && <Button onClick={() => clearItems()}>Remove</Button>}
       </div>
@@ -66,7 +73,7 @@ const Quantity = (props) => {
 }
 
 Quantity.propTypes = {
-  itemId: PropTypes.string.isRequired
+  itemId: PropTypes.number.isRequired
 }
 
 export default Quantity
