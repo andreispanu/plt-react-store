@@ -34,6 +34,11 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   textContainer: {
+  },
+  formControl: {
+    width: "100%",
+    padding: theme.spacing(4),
+    boxSizing: 'border-box'
   }
 }));
 
@@ -46,32 +51,75 @@ const Basket = () => {
   const [availableColors, setAvailableColors] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('all')
 
-
+  const [totalItemsValue, setTotalItemsValue] = useState([])
 
   const calculateItemValue = (q) => {
-    setTotal({
-      id: q.id,
-      value: q.value,
-      action: q.action
-    })
-    addTotals()
+    setTotal([
+      ...total,
+      {
+        id: q.id,
+        value: q.value,
+        action: q.action
+      }
+    ])
   }
-
-  const addTotals = () => {
-    console.log("added totals")
-  }
-
 
   useEffect(() => {
-    let result = [];
-    if (items !== undefined && items.length !== undefined) {
-      let newItems = items.filter(x => x.colour === selectedFilter);
-      result.push(newItems)
-    }
+    console.log(total)
+  }, [total])
 
-    // setItems(result)
+  // useEffect(() => {
+  //   const data = total.reduce(
+  //     (results, current) => ({
+  //       ...total,
+  //       [current.id]: {
+  //         id: current.id,
+  //         value: current.value
+  //       }
+  //     })
+  //   )
+  //   setTotalItemsValue(data)
 
-  }, [items, selectedFilter])
+  // }, [total])
+
+  // useEffect(() => {
+  //   console.log(totalItemsValue)
+  // }, [totalItemsValue])
+
+
+
+  // useEffect(() => {
+  //   // console.log(total)
+  //   // Object.values(total).map(i => console.log(i))
+
+  //   // Object.values(total).reduce(function (accumulator, currentValue) {
+  //   //   return (
+  //   //   )
+  //   // console.log(total)
+
+  //   function getIds() {
+  //     let result = [];
+  //     Object.values(total).map(i => result.push(i.id))
+  //     result = [...new Set(result)]
+  //     return result.filter(x => x !== undefined)
+  //   }
+
+  //   function updateValues() {
+  //     let result = [];
+  //     Object.values(total).map(i => result.push(i.value))
+  //     return result;
+  //   }
+
+  //   let listOfId = getIds();
+
+  //   listOfId.forEach(element => {
+  //     updateIds(element)
+  //   })
+
+  //   updateValues()
+
+  // }, [total])
+
 
 
   // Add data into state
@@ -138,7 +186,6 @@ const Basket = () => {
               return (
                 <option value={item} key={item}>{item}</option>
               )
-
             })}
           </Select>
         </FormControl>
@@ -190,18 +237,6 @@ const Basket = () => {
     }
     return result
   }
-
-  // const calculateItemValue = (q) => {
-  //   setTotal(
-  //     [
-  //       ...total,
-  //       {
-  //         id: q.id,
-  //         value: q.value
-  //       }
-  //     ],
-  //   )
-  // }
 
 
   return (

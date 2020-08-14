@@ -51,8 +51,13 @@ const Quantity = (props) => {
   }
 
   // Clear items from basket
-  const clearItems = () => {
+  const clearItems = (id) => {
     setQuantity(0)
+    props.updateCart({
+      value: 0,
+      id,
+      action: "cancel"
+    })
   }
 
   return (
@@ -73,7 +78,7 @@ const Quantity = (props) => {
       </div>
 
       <div className={classes.itemRemove}>
-        {quantity > 0 && <Button onClick={() => clearItems()}>Remove</Button>}
+        {quantity > 0 && <Button onClick={() => clearItems(props.itemId)}>Remove</Button>}
       </div>
     </div>
 
