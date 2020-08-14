@@ -31,7 +31,8 @@ const Quantity = (props) => {
     setQuantity(quantity => quantity + 1)
     props.updateCart({
       value: (quantity + 1) * price,
-      id
+      id,
+      action: "add"
     })
   }
 
@@ -43,7 +44,8 @@ const Quantity = (props) => {
       setQuantity(quantity => quantity - 1)
       props.updateCart({
         value: (quantity - 1) * price,
-        id
+        id,
+        action: "remove"
       })
     }
   }
