@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import PropTypes from "prop-types";
 import { DashboardContext } from "../context/Context";
 
 // Material UI Components
@@ -11,9 +12,13 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-// Components
-import Quantity from "../components/quantity";
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
+// Components
+import Quantity from "../components/Quantity";
+
+// Material-UI Styles
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -89,10 +94,15 @@ const useStyles = makeStyles((theme) => ({
     '& p': {
       fontSize: theme.spacing(4)
     }
-  }
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: theme.palette.primary.main,
+  },
 }));
 
-const Basket = () => {
+const Basket = (props) => {
+
   const classes = useStyles();
   const products = useContext(DashboardContext);
   const [shape, setShape] = useState({});
@@ -100,7 +110,18 @@ const Basket = () => {
   const [total, setTotal] = useState([]);
   const [availableColors, setAvailableColors] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState("All");
-  const [bigTotal, setBigTotal] = useState(0)
+  const [bigTotal, setBigTotal] = useState(0);
+  const [open, setOpen] = useState(true);
+
+
+  //Backdrop Loader
+  useEffect(() => {
+    setOpen(props.loading);
+  }, [props.loading])
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const calculateItemValue = (q) => {
     const updatedItems = total.filter((x) => x.id !== q.id);
@@ -323,8 +344,15 @@ const Basket = () => {
           </div>
         </Paper>
       </div>
+      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </React.Fragment>
   );
 };
+
+Basket.propTypes = {
+  loading: PropTypes.bool.isRequired
+}
 
 export default Basket;

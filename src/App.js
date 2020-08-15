@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Basket from './containers/basket';
+import Basket from './containers/Basket';
 import axios from 'axios';
 import { DashboardContext } from "./context/Context";
 
 
-
 function App() {
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [data, setData] = useState({});
 
@@ -37,10 +35,10 @@ function App() {
   return (
     <DashboardContext.Provider value={data}>
       <div className="App">
-        <Basket />
+        {error && <p>{error}</p>}
+        <Basket loading={isLoading} />
       </div>
     </DashboardContext.Provider>
-
   );
 }
 

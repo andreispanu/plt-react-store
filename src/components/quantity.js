@@ -7,10 +7,10 @@ import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
+// Material UI Styles
 const useStyles = makeStyles((theme) => ({
   itemContainer: {
     padding: theme.spacing(2),
-
   },
   itemQuantity: {
     width: "100%",
