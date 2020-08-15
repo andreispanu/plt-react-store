@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Basket from './containers/Basket';
+import Basket from './containers/basket';
 import axios from 'axios';
 import { DashboardContext } from "./context/Context";
 

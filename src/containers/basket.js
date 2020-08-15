@@ -16,7 +16,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Components
-import Quantity from "../components/Quantity";
+import Quantity from "../components/quantity";
 
 // Material-UI Styles
 const useStyles = makeStyles((theme) => ({
